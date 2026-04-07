@@ -32,10 +32,11 @@ export function generatePDF(data: FinancialData, pl: PLStatement, bs: BalanceShe
       ['Interest', formatCurrency(pl.interest)],
       [{ content: 'Profit Before Tax (PBT)', styles: { fontStyle: 'bold' } }, { content: formatCurrency(pl.pbt), styles: { fontStyle: 'bold' } }],
       ['Tax', formatCurrency(pl.tax)],
-      [{ content: 'Profit After Tax (PAT)', styles: { fontStyle: 'bold', fillColor: [240, 240, 240] } }, { content: formatCurrency(pl.pat), styles: { fontStyle: 'bold', fillColor: [240, 240, 240] } }],
+      [{ content: 'Profit After Tax (PAT)', styles: { fontStyle: 'bold' } }, { content: formatCurrency(pl.pat), styles: { fontStyle: 'bold' } }],
     ],
-    theme: 'striped',
-    headStyles: { fillColor: [41, 128, 185], textColor: 255 },
+    theme: 'grid',
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], lineWidth: 0.1 },
+    styles: { textColor: [0, 0, 0] }
   });
 
   // Page 2: Balance Sheet
@@ -51,7 +52,7 @@ export function generatePDF(data: FinancialData, pl: PLStatement, bs: BalanceShe
     startY: 50,
     head: [['Assets', 'Amount', 'Liabilities & Equity', 'Amount']],
     body: [
-      [{ content: 'Current Assets', styles: { fontStyle: 'bold', fillColor: [230, 230, 230] } }, '', { content: 'Liabilities', styles: { fontStyle: 'bold', fillColor: [230, 230, 230] } }, ''],
+      [{ content: 'Current Assets', styles: { fontStyle: 'bold' } }, '', { content: 'Liabilities', styles: { fontStyle: 'bold' } }, ''],
       ['Cash', formatCurrency(bs.assets.cash), 'Notes Payable', formatCurrency(bs.liabilitiesEquity.notesPayable)],
       ['Accounts Receivable', formatCurrency(bs.assets.accountsReceivable), 'Accounts Payable', formatCurrency(bs.liabilitiesEquity.accountsPayable)],
       ['Prepaid Expenses', formatCurrency(bs.assets.prepaidExpenses), 'Salaries Payable', formatCurrency(bs.liabilitiesEquity.salariesPayable)],
@@ -59,15 +60,16 @@ export function generatePDF(data: FinancialData, pl: PLStatement, bs: BalanceShe
       ['Supplies', formatCurrency(bs.assets.supplies), '', ''],
       [{ content: 'Total Current Assets', styles: { fontStyle: 'bold' } }, formatCurrency(bs.assets.totalCurrentAssets), { content: 'Total Liabilities', styles: { fontStyle: 'bold' } }, formatCurrency(bs.liabilitiesEquity.totalLiabilities)],
       ['', '', '', ''],
-      [{ content: 'Non-Current Assets', styles: { fontStyle: 'bold', fillColor: [230, 230, 230] } }, '', { content: 'Equity', styles: { fontStyle: 'bold', fillColor: [230, 230, 230] } }, ''],
+      [{ content: 'Non-Current Assets', styles: { fontStyle: 'bold' } }, '', { content: 'Equity', styles: { fontStyle: 'bold' } }, ''],
       ['Equipment', formatCurrency(bs.assets.equipment), 'Capital', formatCurrency(bs.liabilitiesEquity.capital)],
       ['Less: Acc. Depreciation', `(${formatCurrency(bs.assets.accumulatedDepreciation)})`, 'Retained Earnings', formatCurrency(bs.liabilitiesEquity.retainedEarnings)],
       [{ content: 'Net Fixed Assets', styles: { fontStyle: 'bold' } }, formatCurrency(bs.assets.netFixedAssets), { content: 'Total Equity', styles: { fontStyle: 'bold' } }, formatCurrency(bs.liabilitiesEquity.totalEquity)],
       ['', '', '', ''],
-      [{ content: 'TOTAL ASSETS', styles: { fontStyle: 'bold', fillColor: [41, 128, 185], textColor: 255 } }, { content: formatCurrency(bs.assets.totalAssets), styles: { fontStyle: 'bold', fillColor: [41, 128, 185], textColor: 255 } }, { content: 'TOTAL LIABILITIES & EQUITY', styles: { fontStyle: 'bold', fillColor: [41, 128, 185], textColor: 255 } }, { content: formatCurrency(bs.liabilitiesEquity.totalLiabilitiesEquity), styles: { fontStyle: 'bold', fillColor: [41, 128, 185], textColor: 255 } }],
+      [{ content: 'TOTAL ASSETS', styles: { fontStyle: 'bold' } }, { content: formatCurrency(bs.assets.totalAssets), styles: { fontStyle: 'bold' } }, { content: 'TOTAL LIABILITIES & EQUITY', styles: { fontStyle: 'bold' } }, { content: formatCurrency(bs.liabilitiesEquity.totalLiabilitiesEquity), styles: { fontStyle: 'bold' } }],
     ],
     theme: 'grid',
-    headStyles: { fillColor: [41, 128, 185], textColor: 255 },
+    headStyles: { fillColor: [255, 255, 255], textColor: [0, 0, 0], lineWidth: 0.1 },
+    styles: { textColor: [0, 0, 0] }
   });
 
   doc.save(`${data.businessName.replace(/\s+/g, '_')}_Financial_Statements.pdf`);

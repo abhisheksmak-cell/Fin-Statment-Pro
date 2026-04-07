@@ -165,12 +165,12 @@ export default function App() {
 
                   {/* P&L Table */}
                   <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                    <div className="px-6 py-4 border-b border-slate-200">
                       <h3 className="font-bold text-slate-800">Profit & Loss Statement</h3>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm text-left">
-                        <thead className="text-xs text-slate-500 uppercase bg-slate-50/50">
+                        <thead className="text-xs text-slate-500 uppercase border-b border-slate-200">
                           <tr>
                             <th className="px-6 py-3 font-semibold">Particulars</th>
                             <th className="px-6 py-3 font-semibold text-right">Amount (INR)</th>
@@ -198,12 +198,12 @@ export default function App() {
 
                   {/* Balance Sheet Table */}
                   <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
-                    <div className="bg-slate-50 px-6 py-4 border-b border-slate-200">
+                    <div className="px-6 py-4 border-b border-slate-200">
                       <h3 className="font-bold text-slate-800">Estimated Balance Sheet</h3>
                     </div>
                     <div className="overflow-x-auto">
                       <table className="w-full text-sm text-left border-collapse">
-                        <thead className="text-xs text-slate-500 uppercase bg-slate-50/50">
+                        <thead className="text-xs text-slate-500 uppercase border-b border-slate-200">
                           <tr>
                             <th className="px-6 py-3 font-semibold border-r border-slate-100">Assets (INR)</th>
                             <th className="px-6 py-3 font-semibold text-right border-r border-slate-100">Amount</th>
@@ -212,10 +212,10 @@ export default function App() {
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-100">
-                          <tr className="bg-slate-50/30">
-                            <td className="px-6 py-2 font-bold text-blue-600 border-r border-slate-100">Current Assets</td>
+                          <tr>
+                            <td className="px-6 py-2 font-bold border-r border-slate-100">Current Assets</td>
                             <td className="px-6 py-2 border-r border-slate-100"></td>
-                            <td className="px-6 py-2 font-bold text-red-600">Liabilities</td>
+                            <td className="px-6 py-2 font-bold">Liabilities</td>
                             <td className="px-6 py-2"></td>
                           </tr>
                           <BSRow 
@@ -238,16 +238,16 @@ export default function App() {
                             aLabel="Supplies" aValue={results.bs.assets.supplies}
                             lLabel="" lValue={0}
                           />
-                          <tr className="font-bold bg-slate-50/50">
+                          <tr className="font-bold border-t border-slate-200">
                             <td className="px-6 py-3 border-r border-slate-100">Total Current Assets</td>
                             <td className="px-6 py-3 text-right border-r border-slate-100">{formatCurrency(results.bs.assets.totalCurrentAssets)}</td>
                             <td className="px-6 py-3">Total Liabilities</td>
                             <td className="px-6 py-3 text-right">{formatCurrency(results.bs.liabilitiesEquity.totalLiabilities)}</td>
                           </tr>
-                          <tr className="bg-slate-50/30">
-                            <td className="px-6 py-2 font-bold text-blue-600 border-r border-slate-100">Non-Current Assets</td>
+                          <tr>
+                            <td className="px-6 py-2 font-bold border-r border-slate-100">Non-Current Assets</td>
                             <td className="px-6 py-2 border-r border-slate-100"></td>
-                            <td className="px-6 py-2 font-bold text-green-600">Equity</td>
+                            <td className="px-6 py-2 font-bold">Equity</td>
                             <td className="px-6 py-2"></td>
                           </tr>
                           <BSRow 
@@ -258,15 +258,15 @@ export default function App() {
                             aLabel="Less: Acc. Depreciation" aValue={-results.bs.assets.accumulatedDepreciation}
                             lLabel="Retained Earnings" lValue={results.bs.liabilitiesEquity.retainedEarnings}
                           />
-                          <tr className="font-bold bg-slate-50/50">
+                          <tr className="font-bold border-t border-slate-200">
                             <td className="px-6 py-3 border-r border-slate-100">Net Fixed Assets</td>
                             <td className="px-6 py-3 text-right border-r border-slate-100">{formatCurrency(results.bs.assets.netFixedAssets)}</td>
                             <td className="px-6 py-3">Total Equity</td>
                             <td className="px-6 py-3 text-right">{formatCurrency(results.bs.liabilitiesEquity.totalEquity)}</td>
                           </tr>
-                          <tr className="font-bold text-white bg-blue-600">
-                            <td className="px-6 py-4 border-r border-blue-500">TOTAL ASSETS</td>
-                            <td className="px-6 py-4 text-right border-r border-blue-500">{formatCurrency(results.bs.assets.totalAssets)}</td>
+                          <tr className="font-bold border-t-2 border-slate-900">
+                            <td className="px-6 py-4 border-r border-slate-200">TOTAL ASSETS</td>
+                            <td className="px-6 py-4 text-right border-r border-slate-200">{formatCurrency(results.bs.assets.totalAssets)}</td>
                             <td className="px-6 py-4">TOTAL LIABILITIES & EQUITY</td>
                             <td className="px-6 py-4 text-right">{formatCurrency(results.bs.liabilitiesEquity.totalLiabilitiesEquity)}</td>
                           </tr>
@@ -295,10 +295,9 @@ export default function App() {
   );
 }
 
-function Row({ label, value, isBold = false, isHighlight = false }: { label: string; value: number; isBold?: boolean; isHighlight?: boolean }) {
+function Row({ label, value, isBold = false }: { label: string; value: number; isBold?: boolean }) {
   return (
     <tr className={cn(
-      isHighlight && "bg-blue-50/50",
       isBold && "font-bold text-slate-800"
     )}>
       <td className="px-6 py-3">{label}</td>
